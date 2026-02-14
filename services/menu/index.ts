@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { MenuDto } from "@/types/menu.types";
+import { MenuDto } from "@/types/menu/menu.types";
 
 export const menusServices = {
   async getMainMenu() {
