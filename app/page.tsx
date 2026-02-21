@@ -1,9 +1,19 @@
-import DummyClient from "@/components/dummy-client";
+import Hero from "@/features/home";
+import CategoryShowcase from "@/features/home/category-showcase";
+import CollectionShowcase from "@/features/home/collection-showcase";
+import CategoryShowcaseSkeleton from "@/features/home/components/skeletons/category-skeleton";
+import TrendingShowcase from "@/features/home/trending-showcase";
+import { Suspense } from "react";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      {/* <DummyClient /> */}
-    </div>
+    <>
+      <Hero />
+      <Suspense fallback={<CategoryShowcaseSkeleton />}>
+        <CategoryShowcase />
+      </Suspense>
+      <CollectionShowcase />
+      <TrendingShowcase />
+    </>
   );
 }

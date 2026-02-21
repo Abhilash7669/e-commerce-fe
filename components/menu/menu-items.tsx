@@ -28,8 +28,12 @@ export default function MenuItems({ menu }: Props) {
               {section.items &&
                 section.items?.length > 0 &&
                 section.items.map((item) => (
-                  <NavigationMenuLink className="cursor-pointer" asChild key={item.slug}>
-                    <Link className="text-terracotta-light" href={`/${section.title}/${item.slug}`}>
+                  <NavigationMenuLink
+                    className="cursor-pointer"
+                    asChild
+                    key={item.slug}
+                  >
+                    <Link href={`/${section.title}/${item.slug}`}>
                       {item.name}
                     </Link>
                   </NavigationMenuLink>
@@ -49,5 +53,16 @@ export default function MenuItems({ menu }: Props) {
     }
   });
 
-  return <>{checkObject}</>;
+  return (
+    <>
+      <NavigationMenuItem>
+        <NavigationMenuLink asChild>
+          <Link className="text-sm font-medium font-inter" href={`/`}>
+            Home
+          </Link>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+      {checkObject}
+    </>
+  );
 }

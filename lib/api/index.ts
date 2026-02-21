@@ -17,7 +17,14 @@ interface ApiRequestConfig<T = undefined> {
   signal?: AbortSignal;
 }
 
-class ApiError extends Error {
+// todo: handle APIFailure and APISuccess interface
+interface ApiFailure {
+  error?: string;
+  message?: string;
+  statusCode?: number;
+}
+
+export class ApiError extends Error {
   name: string;
 
   constructor(
@@ -49,23 +56,33 @@ class ApiClass {
     };
   }
 
-  async initRequest<T, U = undefined>(apiReqConfig: ApiRequestConfig<U>) {
+  private async initRequest<T, U = undefined>(apiReqConfig: ApiRequestConfig<U>) {
     const { endpoint, data, options } = apiReqConfig;
     const url = this.buildUrl(endpoint);
 
     const requestOptions = await this.buildRequestOptions(options!, data);
 
-    const response = await fetch(url, {
-      ...requestOptions,
-    });
+    try {
+      const response = await fetch(url, {
+        ...requestOptions,
+      });
 
-    if (!response.ok) {
-      throw new ApiError("Something went wrong", 500);
+      const parsedResponse: Awaited<T> = await this.parseResponse<T>(response);
+
+      if (!response.ok) {
+        // type cast parsedResponse as ApiFailure
+        const err = parsedResponse as ApiFailure;
+        throw new ApiError(
+          err.message || "Something went wrong",
+          err.statusCode! || 500,
+        );
+      }
+      return parsedResponse as T;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw new ApiError(error.message, error.status);
+      }
     }
-
-    const parsedResponse = await this.parseResponse<T>(response);
-
-    return parsedResponse as T;
   }
 
   private buildUrl(endpoint: string) {
@@ -118,7 +135,7 @@ class ApiClass {
     return (await response.text()) as unknown as T;
   }
 
-  async get<T>(apiReqConfig: Omit<ApiRequestConfig, "data">) {
+  public async get<T>(apiReqConfig: Omit<ApiRequestConfig, "data">) {
     const { endpoint, options } = apiReqConfig;
     return await this.initRequest<T>({
       endpoint,
@@ -129,7 +146,7 @@ class ApiClass {
     });
   }
 
-  async post<T>(apiReqConfig: ApiRequestConfig) {
+  public async post<T>(apiReqConfig: ApiRequestConfig) {
     const { endpoint, options, data } = apiReqConfig;
     return await this.initRequest<T>({
       endpoint,
@@ -138,7 +155,7 @@ class ApiClass {
     });
   }
 
-  async patch<T, U>(apiReqConfig: ApiRequestConfig) {
+  public async patch<T, U>(apiReqConfig: ApiRequestConfig) {
     const { endpoint, options, data } = apiReqConfig;
     return await this.initRequest<T, U>({
       endpoint,
@@ -147,7 +164,7 @@ class ApiClass {
     });
   }
 
-  async put<T, U>(apiReqConfig: ApiRequestConfig) {
+  public async put<T, U>(apiReqConfig: ApiRequestConfig) {
     const { endpoint, options, data } = apiReqConfig;
     return await this.initRequest<T, U>({
       endpoint,
@@ -156,7 +173,7 @@ class ApiClass {
     });
   }
 
-  async delete<T>(apiReqConfig: ApiRequestConfig) {
+  public async delete<T>(apiReqConfig: ApiRequestConfig) {
     const { endpoint, options, data } = apiReqConfig;
     return await this.initRequest<T>({
       endpoint,

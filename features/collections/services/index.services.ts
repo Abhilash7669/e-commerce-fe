@@ -1,7 +1,21 @@
-import { CollectionProductsPaginatedDto } from "@/features/collections/types/index.types";
+import {
+  CollectionDetail,
+  CollectionProductsPaginatedDto,
+} from "@/features/collections/types/index.types";
 import { api } from "@/lib/api";
 
 export const collectionsServices = {
+  async getCollection(collectionSlug: string) {
+    return await api.get<CollectionDetail>({
+      endpoint: `/collections/${collectionSlug}`,
+      options: {
+        next: {
+          revalidate: 5,
+        },
+      },
+    });
+  },
+
   async getCollectionProducts(collectionSlug: string) {
     const data = await api.get<CollectionProductsPaginatedDto>({
       endpoint: `/collections/${collectionSlug}/products`,

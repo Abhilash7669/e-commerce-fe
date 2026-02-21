@@ -1,11 +1,7 @@
 import { PaginatedResultDto } from "@/types/common/paginated/index.type";
 
-export type CollectionProductsPaginatedDto = {
-  meta: {
-    title: string;
-    description: string;
-  };
-} & PaginatedResultDto<CollectionItem>;
+//todo: re-work type naming, crude implementation rn
+export type CollectionProductsPaginatedDto = PaginatedResultDto<CollectionItem>;
 
 export type CollectionItem = {
   name: string;
@@ -14,4 +10,11 @@ export type CollectionItem = {
   basePrice: number;
   images: string[];
   gender: string;
+};
+
+export type CollectionDetail = {
+  slug: string;
+  name: string;
+  description?: string;
+  previewImageUrl?: string
 };

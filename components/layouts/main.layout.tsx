@@ -1,4 +1,4 @@
-import Header from "@/components/layouts/header";
+import Header from "@/components/layouts/header/header";
 import React from "react";
 
 type Props = {
