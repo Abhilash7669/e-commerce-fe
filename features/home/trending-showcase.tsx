@@ -1,4 +1,5 @@
 import CardDetailed from "@/components/card/variants/detailed/card-detailed";
+import CardListing from "@/components/container/card/card-listing";
 import EyeBrowReversed from "@/components/eye-brow/variants/eye-brow-reversed";
 import { homeServices } from "@/features/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
@@ -23,7 +24,7 @@ export default async function TrendingShowcase() {
         }}
         link="/trending"
       />
-      <ul className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      <CardListing className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
         {data.featured.map((item) => (
           <li key={item.productId.slug}>
             <Link
@@ -38,7 +39,7 @@ export default async function TrendingShowcase() {
             </Link>
           </li>
         ))}
-      </ul>
+      </CardListing>
     </section>
   );
 }

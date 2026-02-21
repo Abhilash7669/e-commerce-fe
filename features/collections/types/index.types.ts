@@ -1,4 +1,7 @@
-import { PaginatedResultDto } from "@/types/common/paginated/index.type";
+import {
+  PaginatedQueryParamsDto,
+  PaginatedResultDto,
+} from "@/types/common/paginated/index.type";
 
 //todo: re-work type naming, crude implementation rn
 export type CollectionProductsPaginatedDto = PaginatedResultDto<CollectionItem>;
@@ -16,5 +19,11 @@ export type CollectionDetail = {
   slug: string;
   name: string;
   description?: string;
-  previewImageUrl?: string
+  previewImageUrl?: string;
 };
+
+export type CollectionsQueryParamsDto = {
+  size?: string;
+  color?: string;
+  sort?: string;
+} & PaginatedQueryParamsDto;

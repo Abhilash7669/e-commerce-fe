@@ -1,4 +1,5 @@
 import CardSplit from "@/components/card/variants/split/card-split";
+import CardListing from "@/components/container/card/card-listing";
 import EyeBrowDefault from "@/components/eye-brow/variants/eye-brow-default";
 import { homeServices } from "@/features/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
@@ -23,7 +24,7 @@ export default async function CollectionShowcase() {
         }}
         link="/collections"
       />
-      <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <CardListing className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {data.collections.map((item) => (
           <li key={item.slug}>
             <Link href={`/collections/${item.slug}`}>
@@ -35,7 +36,7 @@ export default async function CollectionShowcase() {
             </Link>
           </li>
         ))}
-      </ul>
+      </CardListing>
     </section>
   );
 }

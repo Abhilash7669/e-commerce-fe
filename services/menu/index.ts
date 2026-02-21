@@ -3,7 +3,7 @@ import { MenuDto } from "@/types/menu/menu.types";
 
 export const menusServices = {
   async getMainMenu() {
-    return await api.get<MenuDto>({
+    return await api.get<MenuDto, undefined>({
       endpoint: "/menus",
       options: {
         next: {

@@ -10,10 +10,11 @@ interface AuthConfig {
   tokenPrefix?: string;
 }
 
-interface ApiRequestConfig<T = undefined> {
+interface ApiRequestConfig<U = undefined, X = undefined> {
   endpoint: string;
   options?: RequestInit;
-  data?: T | unknown;
+  urlParams?: U;
+  data?: X | unknown;
   signal?: AbortSignal;
 }
 
@@ -56,7 +57,9 @@ class ApiClass {
     };
   }
 
-  private async initRequest<T, U = undefined>(apiReqConfig: ApiRequestConfig<U>) {
+  private async initRequest<T, U = undefined>(
+    apiReqConfig: ApiRequestConfig<U>,
+  ) {
     const { endpoint, data, options } = apiReqConfig;
     const url = this.buildUrl(endpoint);
 
@@ -135,10 +138,34 @@ class ApiClass {
     return (await response.text()) as unknown as T;
   }
 
-  public async get<T>(apiReqConfig: Omit<ApiRequestConfig, "data">) {
-    const { endpoint, options } = apiReqConfig;
+  private buildUrlParams(urlParams: Record<string, unknown>) {
+    let query = "";
+    const params = new URLSearchParams();
+    Object.entries(urlParams).forEach(([key, value]) => {
+      if (value === undefined || value === null) return;
+
+      if (Array.isArray(value)) {
+        value.forEach((v) => params.append(key, String(v)));
+      } else {
+        params.append(key, String(value));
+      }
+    });
+    query = params.toString();
+
+    return query;
+  }
+
+  public async get<T, U>(apiReqConfig: Omit<ApiRequestConfig<U>, "data">) {
+    const { endpoint, options, urlParams } = apiReqConfig;
+
+    let query = "";
+
+    if (urlParams) {
+      query = this.buildUrlParams(urlParams);
+    }
+
     return await this.initRequest<T>({
-      endpoint,
+      endpoint: `${endpoint}${query ? `?${query}` : ""}`,
       options: {
         method: "GET",
         ...options,
