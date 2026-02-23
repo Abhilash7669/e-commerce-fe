@@ -151,7 +151,6 @@ class ApiClass {
       }
     });
     query = params.toString();
-
     return query;
   }
 

@@ -23,7 +23,7 @@ export type CollectionDetail = {
 };
 
 export type CollectionsQueryParamsDto = {
-  size?: string;
-  color?: string;
+  size?: string[];
+  color?: string[];
   sort?: string;
 } & PaginatedQueryParamsDto;
