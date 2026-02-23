@@ -4,11 +4,21 @@ import { cn } from "@/lib/utils";
 type Props = {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => Promise<void> | void;
 };
 
-export default function ButtonSecondary({ children, className = "" }: Props) {
+export default function ButtonSecondary({
+  children,
+  className = "",
+  onClick,
+}: Props) {
   return (
-    <Button className={cn("", className)} variant={"secondary"}>
+    // todo: make button accept all html button props
+    <Button
+      onClick={onClick}
+      className={cn("", className)}
+      variant={"secondary"}
+    >
       {children}
     </Button>
   );

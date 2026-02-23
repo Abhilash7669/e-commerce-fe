@@ -9,3 +9,8 @@ export type PaginatedResultDto<T> = {
   };
   items: Array<T>;
 };
+
+export type PaginatedQueryParamsDto = {
+  limit?: number;
+  page?: number;
+};

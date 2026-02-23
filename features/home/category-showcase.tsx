@@ -1,4 +1,5 @@
 import CardDefault from "@/components/card/variants/default/card-default";
+import CardListing from "@/components/container/card/card-listing";
 import { homeServices } from "@/features/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import Link from "next/link";
@@ -23,7 +24,7 @@ export default async function CategoryShowcase() {
         </p>
       </div>
       {hasCategories && (
-        <ul className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <CardListing className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {data.categories.map((item) => (
             <li key={item.slug}>
               <Link href={`/categories/${item.slug}`}>
@@ -31,7 +32,7 @@ export default async function CategoryShowcase() {
               </Link>
             </li>
           ))}
-        </ul>
+        </CardListing>
       )}
     </section>
   );

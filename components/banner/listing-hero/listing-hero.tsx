@@ -7,7 +7,7 @@ type Props = {
   description?: string;
 };
 
-export default function ListingssHero({ description, image, title }: Props) {
+export default function ListingsHero({ description, image, title }: Props) {
   return (
     <section className="py-6 h-[70vh] relative flex items-center justify-center">
       <FadeBottomOverlay className="h-full" />

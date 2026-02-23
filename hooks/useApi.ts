@@ -2,7 +2,11 @@
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import { useEffect, useState } from "react";
 
-export function useApi<T>(apiOptions: { dataFn: () => Promise<T> }) {
+export function useApi<T>(apiOptions: {
+  dataFn: () => Promise<T>;
+  options?: { selfExecute?: boolean; signal?: AbortController };
+  urlParams?: Record<string, unknown>;
+}) {
   /**
    * Loading states
    */
@@ -53,11 +57,20 @@ export function useApi<T>(apiOptions: { dataFn: () => Promise<T> }) {
   }
 
   useEffect(() => {
+    console.log("outside");
+    if (apiOptions.options?.selfExecute) {
+      (async () => {
+        console.log("SELF EXEC");
+        await execute();
+      })();
+    }
+    console.log("exit");
     return () => {
       // cleanup function
       resetStates();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiOptions.urlParams]);
 
   return {
     data,

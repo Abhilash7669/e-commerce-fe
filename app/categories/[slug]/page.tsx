@@ -1,8 +1,8 @@
+import ListingsHero from "@/components/banner/listing-hero/listing-hero";
 import CardDetailed from "@/components/card/variants/detailed/card-detailed";
-import ListingssHero from "@/components/hero/listing-hero";
+import CardListing from "@/components/container/card/card-listing";
 import { categoriesServices } from "@/features/categories/services/index.services";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
-import React from "react";
 
 type Props = {
   params: Promise<{
@@ -25,7 +25,7 @@ export default async function page({ params }: Props) {
   return (
     <main>
       {category.success ? (
-        <ListingssHero
+        <ListingsHero
           title={category.data?.name}
           description={category.data?.description}
           image={category.data?.previewImageUrl}
@@ -36,7 +36,7 @@ export default async function page({ params }: Props) {
       {categories.success && categories.data && (
         <>
           {hasCategoryProducts && (
-            <ul className="grid sm:grid-cols-2 xl:grid-cols-4 gap-6 px-12 py-6">
+            <CardListing>
               {categories.data.items.map((item) => (
                 <li key={item.slug}>
                   <CardDetailed
@@ -46,7 +46,7 @@ export default async function page({ params }: Props) {
                   />
                 </li>
               ))}
-            </ul>
+            </CardListing>
           )}
         </>
       )}
