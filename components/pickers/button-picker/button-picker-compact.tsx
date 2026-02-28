@@ -2,15 +2,15 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  isActive?: boolean | undefined;
   onClick?: () => void;
-  label: string;
+  isActive?: boolean;
+  children: React.ReactNode;
 };
 
-export default function ButtonPicker({
+export default function ButtonPickerCompact({
   onClick = undefined,
   isActive = false,
-  label = "Hello there",
+  children,
 }: Props) {
   return (
     <li>
@@ -18,13 +18,13 @@ export default function ButtonPicker({
         variant="ghost"
         onClick={onClick}
         className={cn(
-          "w-full justify-start font-inter text-sm font-normal",
+          "w-fit justify-start font-inter text-sm font-normal",
           isActive
             ? "text-terracotta font-medium bg-terracotta/10"
             : "text-warm-gray hover:text-foreground hover:bg-muted",
         )}
       >
-        {label}
+        {children}
       </Button>
     </li>
   );

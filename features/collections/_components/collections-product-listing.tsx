@@ -23,6 +23,7 @@ import { collectionsServices } from "@/features/collections/services/index.servi
 import { useApi } from "@/hooks/useApi";
 import { cn } from "@/lib/utils";
 import { LuSlidersHorizontal } from "react-icons/lu";
+import Link from "next/link";
 
 type Props = {
   slug: string;
@@ -77,7 +78,6 @@ export default function CollectionsProductListing({ slug }: Props) {
                         toggleSingleFilter({
                           key: "sort",
                           value: item.value,
-                          checked: SortConditionCheck(item.value),
                         })
                       }
                       isActive={SortConditionCheck(item.value)}
@@ -196,29 +196,33 @@ export default function CollectionsProductListing({ slug }: Props) {
         {/* todo: can build a better error component */}
         {error && <p className="text-red-500">{message}</p>}
         {isLoading && (
-          <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
-            {Array.from({ length: 6 }).map((_, i) => (
+          <GeneralContainer>
+            {Array.from({ length: 3 }).map((_, i) => (
               <li key={i}>
                 <CardDefaultSkeleton />
               </li>
             ))}
-          </ul>
+          </GeneralContainer>
         )}
         {isSuccess && data && (
           <GeneralContainer className="flex-1">
             {data.items.map((item) => (
               <li key={item.slug}>
-                <CardDetailed
-                  basePrice={item.basePrice}
-                  image={item.images[0]}
-                  name={item.name}
-                />
+                <Link prefetch={false} href={`/products/${item.slug}`}>
+                  <CardDetailed
+                    basePrice={item.basePrice}
+                    image={item.previewImageUrl}
+                    name={item.name}
+                  />
+                </Link>
               </li>
             ))}
           </GeneralContainer>
         )}
         {isSuccess && data?.items.length === 0 && (
-          <h1 className="text-center mx-auto h-[40vh] flex items-center justify-center">No Items Found</h1>
+          <h1 className="text-center mx-auto h-[40vh] flex items-center justify-center">
+            No Items Found
+          </h1>
         )}
       </div>
     </section>

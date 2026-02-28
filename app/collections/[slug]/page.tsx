@@ -1,6 +1,6 @@
 import ListingsHeroSkeleton from "@/components/banner/listing-hero/skeleton/listing-hero.skeleton";
 import CollectionsProductListing from "@/features/collections/_components/collections-product-listing";
-import CollectionsHero from "@/features/collections/banner/collections-hero";
+import CollectionsHero from "@/features/collections/_components/banner/collections-hero";
 import { Suspense } from "react";
 
 type PageParams = {

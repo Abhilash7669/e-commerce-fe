@@ -44,12 +44,15 @@ export default function useCollectionsQueryParamsDto() {
   function toggleSingleFilter(options: {
     key: keyof Omit<CollectionsQueryParamsDto, "size" | "color">;
     value: string;
-    checked: boolean;
   }) {
-    const { key, value, checked } = options;
+    const { key, value } = options;
     setCollectionsParamsDto((prevState) => {
-      if (checked) {
-        return { ...prevState, [key]: value };
+      // check if it is already present
+      if (!prevState[key]) {
+        return {
+          ...prevState,
+          [key]: value,
+        };
       } else {
         const { [key]: _, ...rest } = prevState;
         return rest;
@@ -96,11 +99,7 @@ export default function useCollectionsQueryParamsDto() {
   }
 
   function SortConditionCheck(sortValue: string) {
-    return collectionsParamsDto.sort
-      ? collectionsParamsDto.sort.includes(sortValue)
-        ? false
-        : true
-      : true;
+    return collectionsParamsDto.sort?.includes(sortValue) || false;
   }
 
   return {
