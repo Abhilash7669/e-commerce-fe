@@ -1,4 +1,5 @@
 import Header from "@/components/layouts/header/header";
+import CartProvider from "@/providers/cart.providers";
 import React from "react";
 
 type Props = {
@@ -9,7 +10,7 @@ export default function MainLayout({ children }: Props) {
   return (
     <div>
       <Header />
-      {children}
+      <CartProvider>{children}</CartProvider>
     </div>
   );
 }

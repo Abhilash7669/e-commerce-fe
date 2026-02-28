@@ -3,6 +3,7 @@ import CardDetailed from "@/components/card/variants/detailed/card-detailed";
 import CardListing from "@/components/container/card/card-listing";
 import { categoriesServices } from "@/features/categories/services/index.services";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
+import Link from "next/link";
 
 type Props = {
   params: Promise<{
@@ -39,11 +40,13 @@ export default async function page({ params }: Props) {
             <CardListing>
               {categories.data.items.map((item) => (
                 <li key={item.slug}>
-                  <CardDetailed
-                    basePrice={item.basePrice}
-                    image={item.images?.[0]}
-                    name={item.name}
-                  />
+                  <Link href={`/products/${item.slug}`}>
+                    <CardDetailed
+                      basePrice={item.basePrice}
+                      image={item.images?.[0]}
+                      name={item.name}
+                    />
+                  </Link>
                 </li>
               ))}
             </CardListing>

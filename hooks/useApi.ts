@@ -26,6 +26,7 @@ export function useApi<T>(apiOptions: {
    */
   const [data, setData] = useState<T | null>(null);
 
+
   async function execute() {
     setData(null);
     setIsIdle(false);

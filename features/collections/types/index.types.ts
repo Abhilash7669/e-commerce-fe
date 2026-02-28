@@ -13,6 +13,7 @@ export type CollectionItem = {
   basePrice: number;
   images: string[];
   gender: string;
+  previewImageUrl?: string;
 };
 
 export type CollectionDetail = {

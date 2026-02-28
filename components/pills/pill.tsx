@@ -13,7 +13,7 @@ export default function Pill({ children, className = "" }: Props) {
         `
         relative overflow-hidden
         rounded-full w-fit px-4 py-1.5
-        flex items-center gap-2
+        flex items-center justify-center gap-2
 
         backdrop-blur-xl
 

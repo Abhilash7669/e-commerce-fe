@@ -14,7 +14,7 @@ interface ApiRequestConfig<U = undefined, X = undefined> {
   endpoint: string;
   options?: RequestInit;
   urlParams?: U;
-  data?: X | unknown;
+  data?: X;
   signal?: AbortSignal;
 }
 
@@ -57,13 +57,13 @@ class ApiClass {
     };
   }
 
-  private async initRequest<T, U = undefined>(
-    apiReqConfig: ApiRequestConfig<U>,
+  private async initRequest<T, U = undefined, X = undefined>(
+    apiReqConfig: ApiRequestConfig<U, X>,
   ) {
     const { endpoint, data, options } = apiReqConfig;
     const url = this.buildUrl(endpoint);
 
-    const requestOptions = await this.buildRequestOptions(options!, data);
+    const requestOptions = await this.buildRequestOptions(options!, data as X);
 
     try {
       const response = await fetch(url, {
@@ -154,7 +154,9 @@ class ApiClass {
     return query;
   }
 
-  public async get<T, U>(apiReqConfig: Omit<ApiRequestConfig<U>, "data">) {
+  public async get<T, U = undefined>(
+    apiReqConfig: Omit<ApiRequestConfig<U>, "data">,
+  ) {
     const { endpoint, options, urlParams } = apiReqConfig;
 
     let query = "";
@@ -181,20 +183,27 @@ class ApiClass {
     });
   }
 
-  public async patch<T, U>(apiReqConfig: ApiRequestConfig) {
+  public async patch<T, U>(
+    apiReqConfig: Omit<ApiRequestConfig<undefined, U>, "urlParams">,
+  ) {
     const { endpoint, options, data } = apiReqConfig;
-    return await this.initRequest<T, U>({
+    return await this.initRequest<T, undefined, U>({
       endpoint,
       options,
       data,
     });
   }
 
-  public async put<T, U>(apiReqConfig: ApiRequestConfig) {
+  public async put<T, U>(
+    apiReqConfig: Omit<ApiRequestConfig<undefined, U>, "urlParams">,
+  ) {
     const { endpoint, options, data } = apiReqConfig;
-    return await this.initRequest<T, U>({
+    return await this.initRequest<T, undefined, U>({
       endpoint,
-      options,
+      options: {
+        ...options,
+        method: "PUT",
+      },
       data,
     });
   }
