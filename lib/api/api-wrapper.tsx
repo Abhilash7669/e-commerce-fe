@@ -1,4 +1,4 @@
-import { ApiError } from "@/lib/api";
+import { ApiError } from "@/lib/api/api-low-level";
 
 export async function handleApiRequest<T>(promise: Promise<T>) {
   try {

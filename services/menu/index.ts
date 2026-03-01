@@ -7,9 +7,9 @@ export const menusServices = {
       endpoint: "/menus",
       options: {
         next: {
-          revalidate: 10
-        }
-      }
+          revalidate: 10,
+        },
+      },
     });
   },
 };

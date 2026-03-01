@@ -26,7 +26,6 @@ export function useApi<T>(apiOptions: {
    */
   const [data, setData] = useState<T | null>(null);
 
-
   async function execute() {
     setData(null);
     setIsIdle(false);
@@ -40,11 +39,16 @@ export function useApi<T>(apiOptions: {
       setStatusCode(response.status || 500);
       return;
     }
-
+    console.log(response.data, "RESPONSE");
     setData(response.data);
     setIsLoading(false);
     setIsIdle(true);
     setIsSuccess(true);
+
+    return {
+      success: true,
+      data: response.data,
+    };
   }
 
   function resetStates() {
