@@ -8,10 +8,10 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // const getCart = useGetCart();
-  // useEffect(() => {
-  //   getCart();
-  // }, [getCart]);
+  const getCart = useGetCart();
+  useEffect(() => {
+    getCart();
+  }, [getCart]);
 
   return (
     <>

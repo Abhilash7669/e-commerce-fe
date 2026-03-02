@@ -12,6 +12,7 @@ import {
 import { useMutationApi } from "@/hooks/useMutationApi";
 import { setCookieValue } from "@/lib/helper/token-extraction";
 import { authService } from "@/services/auth/auth.services";
+import { useHasError } from "@/store/auth/index.auth";
 import { useCartSheetToggle } from "@/store/cart-ui/index.cart-ui";
 import { useCartItemsCount } from "@/store/cart/index.cart";
 import { useState } from "react";
@@ -31,6 +32,7 @@ export default function HeaderActions() {
 
   const cartCount = useCartItemsCount();
   const toggleCartSheet = useCartSheetToggle();
+  const hasError = useHasError();
 
   const { execute, isLoading, message } = useMutationApi({
     dataFn: async () => await authService.login(loginData),
@@ -52,6 +54,7 @@ export default function HeaderActions() {
 
   return (
     <div className="flex items-center gap-4">
+      {hasError && <p className="text-red-500">{hasError}</p>}
       <IoMdSearch className="text-xl cursor-pointer" />
       <div onClick={toggleCartSheet} className="flex items-center gap-1">
         <PiShoppingCartSimpleBold className="text-xl cursor-pointer" />
