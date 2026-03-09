@@ -1,5 +1,9 @@
 import { api } from "@/lib/api";
-import { TAuthLoginDto, TAuthSignInResDto } from "@/types/auth/auth.types";
+import {
+  TAuthLoginDto,
+  TAuthSignInResDto,
+  TIsAuthenticated,
+} from "@/types/auth/auth.types";
 
 const AUTH_BASE_URL = "/auth";
 
@@ -12,7 +16,7 @@ export const authService = {
   },
 
   async isAuthenticated() {
-    return api.get<TAuthSignInResDto>({
+    return api.get<TIsAuthenticated>({
       endpoint: `${AUTH_BASE_URL}/verify`,
     });
   },

@@ -46,9 +46,5 @@ export type TCart = {
 
 export type TUpdateCart = {
   quantity: number;
-  cartId?: string;
-  userId?: string;
   sku: string;
-  // productVariantId: string;
-  // productId: string;
 };

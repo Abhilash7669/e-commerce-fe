@@ -2,48 +2,27 @@ import { api } from "@/lib/api";
 import { TCart, TUpdateCart } from "@/types/cart/cart.types";
 
 export const cartService = {
-  async getCart(cartId: string) {
+  async getCart() {
     return await api.get<TCart>({
-      endpoint: `/carts/${cartId}`,
+      endpoint: `/carts/me`,
+      options: {
+        credentials: "include",
+      },
     });
   },
-  async cartLogic(cartData: {
-    cartId?: string;
-    userId?: string;
-    productId: string;
-    productVariantId: string;
-    quantity: number;
-  }) {
-    const { productId, productVariantId, quantity, cartId, userId } = cartData;
+  async cartLogic(cartData: { sku: string; quantity: number }) {
+    const { sku, quantity } = cartData;
     return await api.put<
       TCart,
       {
-        cartId?: string;
-        userId?: string;
-        productId: string;
-        productVariantId: string;
+        sku: string;
         quantity: number;
       }
     >({
       endpoint: "/carts",
       data: {
-        productId,
-        productVariantId,
+        sku,
         quantity,
-        cartId,
-        userId,
-      },
-    });
-  },
-  // todo: need to remove this, depricated
-  async updateCart(data: TUpdateCart) {
-    return await api.put<TCart, TUpdateCart>({
-      endpoint: `/carts/`,
-      data: {
-        quantity: data.quantity,
-        sku: data.sku,
-        cartId: data.cartId || undefined,
-        userId: data.userId || undefined,
       },
     });
   },

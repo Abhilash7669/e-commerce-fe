@@ -7,7 +7,6 @@ import Link from "next/link";
 export default async function CategoryShowcase() {
   const { data, success } = await handleApiRequest(homeServices.getHomeData());
 
-  // todo:
   if (!success) return "Oops! Handle this error later";
 
   const hasCategories = data?.categories && data.categories.length > 0;

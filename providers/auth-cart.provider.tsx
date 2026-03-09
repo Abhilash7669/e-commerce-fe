@@ -1,6 +1,7 @@
 "use client";
 
-import { useIsAuthenticated } from "@/store/auth/index.auth";
+import CartSheet from "@/components/sheets/cart-sheet";
+import { useTriggerAuthFlow } from "@/store/auth-cart";
 import { useEffect } from "react";
 
 type Props = {
@@ -8,12 +9,17 @@ type Props = {
 };
 
 export default function AuthProvider({ children }: Props) {
-  const isAuthenticated = useIsAuthenticated();
+  const triggerAuthFlow = useTriggerAuthFlow();
 
   useEffect(() => {
-    isAuthenticated();
+    triggerAuthFlow();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <CartSheet />
+    </>
+  );
 }

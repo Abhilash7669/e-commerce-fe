@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import useProductVariants from "@/features/products/hooks/useProductVariants";
 import { TProductDetail } from "@/features/products/types/index.types";
-import { useUpdateCart } from "@/store/cart/index.cart";
+import { useUpdateCart } from "@/store/auth-cart";
 import Image from "next/image";
 
 type Props = {
@@ -127,10 +127,13 @@ export default function ProductDetail({ data }: Props) {
         <div className="flex items-center gap-2">
           <Button
             onClick={async () =>
-              await updateCart({
-                quantity: 1,
-                sku: activeVariant.sku,
-              })
+              // use new sstore here
+              {
+                await updateCart({
+                  quantity: 1,
+                  sku: activeVariant.sku,
+                });
+              }
             }
           >
             Add to Cart

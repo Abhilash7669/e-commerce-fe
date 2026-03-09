@@ -3,7 +3,6 @@
 import CountControl from "@/components/controls/count-control";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -12,25 +11,18 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { useCartItems, useCartTotal, useUpdateCart } from "@/store/auth-cart";
 import {
   useCartSheetToggle,
   useIsCartSheetOpen,
 } from "@/store/cart-ui/index.cart-ui";
-import {
-  useGetCartItems,
-  useIsCartLoading,
-  useUpdateCart,
-} from "@/store/cart/index.cart";
-
 export default function CartSheet() {
   const isCartSheetOpen = useIsCartSheetOpen();
   const toggleCartSheet = useCartSheetToggle();
 
-  const cartItems = useGetCartItems();
-  console.log(cartItems, "CART ITEM");
+  const cartItems = useCartItems();
+  const cartTotal = useCartTotal();
   const updateCart = useUpdateCart();
-
-  // const isCartLoading = useIsCartLoading();
 
   return (
     <Sheet open={isCartSheetOpen} onOpenChange={toggleCartSheet}>
@@ -67,12 +59,12 @@ export default function CartSheet() {
                           {item.productVariantId.attribute.size}
                         </p>
                         <CountControl
-                          onDecrement={async (count) =>
+                          onDecrement={async (count) => {
                             await updateCart({
                               sku: item.productVariantId.sku,
                               quantity: count,
-                            })
-                          }
+                            });
+                          }}
                           onIncrement={async (count) => {
                             await updateCart({
                               sku: item.productVariantId.sku,
@@ -94,7 +86,7 @@ export default function CartSheet() {
         <SheetFooter className="pt-0">
           <Button className="h-10 text-base flex items-center gap-4">
             <span className="uppercase font-playfair-display">Checkout</span>
-            <span className="h-1 w-1 rounded-full bg-muted"></span>
+            <span className="h-1 w-1 rounded-full bg-muted">{cartTotal}</span>
             <span>₹ {cartItems?.totalPrice}</span>
           </Button>
         </SheetFooter>

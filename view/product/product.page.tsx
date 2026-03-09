@@ -11,6 +11,7 @@ export default async function ProductPage({ slug }: Props) {
     productsServices.getProductDetail(slug),
   );
 
+  // todo: better state components
   if (!success) return `Error message here: ${message}`;
 
   if (!data) return `No data found`;

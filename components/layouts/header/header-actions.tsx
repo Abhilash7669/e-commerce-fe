@@ -10,11 +10,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useMutationApi } from "@/hooks/useMutationApi";
+import { ENV } from "@/lib/config/env.config";
 import { setCookieValue } from "@/lib/helper/token-extraction";
 import { authService } from "@/services/auth/auth.services";
+import {
+  useCartTotal,
+  useDummyAuthCount,
+  useTriggerAuthFlow,
+} from "@/store/auth-cart";
 import { useHasError } from "@/store/auth/index.auth";
 import { useCartSheetToggle } from "@/store/cart-ui/index.cart-ui";
-import { useCartItemsCount } from "@/store/cart/index.cart";
 import { useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { PiShoppingCartSimpleBold } from "react-icons/pi";
@@ -30,13 +35,17 @@ export default function HeaderActions() {
     password: "Kaizen47$",
   });
 
-  const cartCount = useCartItemsCount();
+  const cartCount = useCartTotal();
   const toggleCartSheet = useCartSheetToggle();
   const hasError = useHasError();
 
   const { execute, isLoading, message } = useMutationApi({
     dataFn: async () => await authService.login(loginData),
   });
+
+  const triggerAuthFlow = useTriggerAuthFlow();
+
+  const dummyCount = useDummyAuthCount();
 
   async function handleLogin() {
     const res = await execute();
@@ -45,15 +54,20 @@ export default function HeaderActions() {
       return;
     }
     if (res.data) {
-      await setCookieValue({
-        key: "lilly_Token",
+      const isCookieSet = await setCookieValue({
+        key: ENV.AUTH_ACCESS_TOKEN_COOKIE_NAME,
         value: res.data.access_token as string,
       });
+
+      console.log(isCookieSet, "IS SET");
+
+      if (isCookieSet) await triggerAuthFlow();
     }
   }
 
   return (
     <div className="flex items-center gap-4">
+      <p>This is the count from our shared slice: {dummyCount}</p>
       {hasError && <p className="text-red-500">{hasError}</p>}
       <IoMdSearch className="text-xl cursor-pointer" />
       <div onClick={toggleCartSheet} className="flex items-center gap-1">

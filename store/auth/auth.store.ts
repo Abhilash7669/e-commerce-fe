@@ -1,5 +1,4 @@
 import { handleApiRequest } from "@/lib/api/api-wrapper";
-import { setCookieValue } from "@/lib/helper/token-extraction";
 import { authService } from "@/services/auth/auth.services";
 import { TAuthStore } from "@/store/auth/auth.store.types";
 import { create } from "zustand";
@@ -15,11 +14,8 @@ export const useAuthStore = create<TAuthStore>((set) => ({
       return;
     }
 
-    if (res.data && res.data.access_token) {
-      setCookieValue({ key: "lilly_Token", value: res.data.access_token });
+    if (res.data && res.data.authenticated) {
       set((state) => ({ ...state, isLoggedIn: true, errorMessage: null }));
     }
   },
 }));
-
-

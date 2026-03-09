@@ -13,7 +13,7 @@ export default function ProductDetailSkeleton() {
       <div className="grid grid-cols-2 gap-12 px-8 py-6">
         {/* Left — Main image */}
         <div className="flex flex-col gap-4">
-          <div className="shimmer w-full aspect-[4/5] rounded-xl" />
+          <div className="shimmer w-full aspect-4/5 rounded-xl" />
 
           {/* Thumbnails */}
           <div className="flex gap-3">

@@ -4,8 +4,6 @@ import ButtonSecondary from "@/components/buttons/button-secondary";
 import CardDefaultSkeleton from "@/components/card/variants/default/skeleton/card-default-skeleton";
 import CardDetailed from "@/components/card/variants/detailed/card-detailed";
 import ColorPicker from "@/components/pickers/color-picker";
-// todo: use General Container instead of CardListing
-// import CardListing from "@/components/container/card/card-listing";
 import GeneralContainer from "@/components/container/general-container";
 import ButtonPicker from "@/components/pickers/button-picker";
 import {
