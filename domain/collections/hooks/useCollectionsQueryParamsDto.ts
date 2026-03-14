@@ -1,6 +1,6 @@
 "use client";
 
-import { CollectionsQueryParamsDto } from "@/features/collections/types/index.types";
+import { CollectionsQueryParamsDto } from "@/domain/collections/types/index.types";
 import { useState } from "react";
 
 const INITIAL_STATE = {};

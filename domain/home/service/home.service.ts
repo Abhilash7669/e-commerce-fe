@@ -1,4 +1,4 @@
-import { TempHomePageDTO } from "@/features/home/types/index.type";
+import { TempHomePageDTO } from "@/domain/home/types/index.type";
 import { api } from "@/lib/api";
 
 export const homeServices = {

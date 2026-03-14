@@ -7,8 +7,8 @@ import ButtonPickerCompact from "@/components/pickers/button-picker/button-picke
 import ProductImagePicker from "@/components/pickers/product-image-picker";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import useProductVariants from "@/features/products/hooks/useProductVariants";
-import { TProductDetail } from "@/features/products/types/index.types";
+import useProductVariants from "@/domain/products/hooks/useProductVariants";
+import { TProductDetail } from "@/domain/products/types/index.types";
 import { useUpdateCart } from "@/store/auth-cart";
 import Image from "next/image";
 

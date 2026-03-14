@@ -1,5 +1,5 @@
 import ListingsHero from "@/components/banner/listing-hero/listing-hero";
-import { collectionsServices } from "@/features/collections/services/index.services";
+import { collectionsServices } from "@/domain/collections/services/index.services";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 
 type Props = {

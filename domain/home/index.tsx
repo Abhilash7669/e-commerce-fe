@@ -1,7 +1,7 @@
 "use client";
 import FadeBottomOverlay from "@/components/overlay/fade-bottom.overlay";
 import AdvancedWaterRipple from "@/components/water-ripple";
-import HeroTextBox from "@/features/home/components/hero-text-box";
+import HeroTextBox from "@/domain/home/components/hero-text-box";
 
 export default function Hero() {
   return (

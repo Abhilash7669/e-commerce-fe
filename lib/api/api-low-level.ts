@@ -68,6 +68,7 @@ export class ApiClass {
     try {
       const response = await fetch(url, {
         ...requestOptions,
+        credentials: "include",
       });
 
       const parsedResponse: Awaited<T> = await this.parseResponse<T>(response);

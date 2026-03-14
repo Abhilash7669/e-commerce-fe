@@ -1,5 +1,5 @@
 import Pill from "@/components/pills/pill";
-import { TProductDiscounts } from "@/features/products/types/index.types";
+import { TProductDiscounts } from "@/domain/products/types/index.types";
 
 type Props = {
   discountType: TProductDiscounts;

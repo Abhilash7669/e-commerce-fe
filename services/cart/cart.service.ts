@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { TCart, TUpdateCart } from "@/types/cart/cart.types";
+import { TCart } from "@/types/cart/cart.types";
 
 export const cartService = {
   async getCart() {

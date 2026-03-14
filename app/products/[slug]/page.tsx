@@ -1,4 +1,4 @@
-import ProductDetailSkeleton from "@/features/products/_components/skeletons/product-page.skeleton";
+import ProductDetailSkeleton from "@/domain/products/_components/skeletons/product-page.skeleton";
 import ProductPage from "@/view/product/product.page";
 import { Suspense } from "react";
 

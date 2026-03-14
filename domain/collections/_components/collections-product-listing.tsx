@@ -15,9 +15,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
-import { COLOR_PICKER, SORT_BY } from "@/features/collections/data/index.data";
-import useCollectionsQueryParamsDto from "@/features/collections/hooks/useCollectionsQueryParamsDto";
-import { collectionsServices } from "@/features/collections/services/index.services";
+import { COLOR_PICKER, SORT_BY } from "@/domain/collections/data/index.data";
+import useCollectionsQueryParamsDto from "@/domain/collections/hooks/useCollectionsQueryParamsDto";
+import { collectionsServices } from "@/domain/collections/services/index.services";
 import { useApi } from "@/hooks/useApi";
 import { cn } from "@/lib/utils";
 import { LuSlidersHorizontal } from "react-icons/lu";

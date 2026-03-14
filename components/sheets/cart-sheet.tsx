@@ -86,7 +86,7 @@ export default function CartSheet() {
         <SheetFooter className="pt-0">
           <Button className="h-10 text-base flex items-center gap-4">
             <span className="uppercase font-playfair-display">Checkout</span>
-            <span className="h-1 w-1 rounded-full bg-muted">{cartTotal}</span>
+            <span className="h-1 w-1 rounded-full bg-muted"></span>
             <span>₹ {cartItems?.totalPrice}</span>
           </Button>
         </SheetFooter>

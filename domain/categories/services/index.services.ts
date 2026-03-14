@@ -1,7 +1,7 @@
 import {
   CategoriesProductsPaginatedDto,
   CategoryDetail,
-} from "@/features/categories/types/index.types";
+} from "@/domain/categories/types/index.types";
 import { api } from "@/lib/api";
 
 const CATEGORIES_BASE_URL = "categories";

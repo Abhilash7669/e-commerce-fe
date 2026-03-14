@@ -1,5 +1,5 @@
-import ProductDetail from "@/features/products/_components/product-detail";
-import { productsServices } from "@/features/products/services/index.services";
+import ProductDetail from "@/domain/products/_components/product-detail";
+import { productsServices } from "@/domain/products/services/index.services";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 
 type Props = {

@@ -2,7 +2,7 @@ import {
   CollectionDetail,
   CollectionProductsPaginatedDto,
   CollectionsQueryParamsDto,
-} from "@/features/collections/types/index.types";
+} from "@/domain/collections/types/index.types";
 import { api } from "@/lib/api";
 
 export const collectionsServices = {

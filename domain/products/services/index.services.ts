@@ -1,4 +1,4 @@
-import { TProductDetail } from "@/features/products/types/index.types";
+import { TProductDetail } from "@/domain/products/types/index.types";
 import { api } from "@/lib/api";
 
 const PRODUCTS_BASE_URL = "/products";

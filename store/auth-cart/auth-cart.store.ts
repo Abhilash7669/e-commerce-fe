@@ -1,6 +1,10 @@
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import { ENV } from "@/lib/config/env.config";
-import { getCookie, removeCookie } from "@/lib/helper/token-extraction";
+import {
+  getCookie,
+  removeCookie,
+  setCookieValue,
+} from "@/lib/helper/token-extraction";
 import { authService } from "@/services/auth/auth.services";
 import { cartService } from "@/services/cart/cart.service";
 import {
@@ -36,6 +40,7 @@ const createAuthSlice: StateCreator<
     const res = await handleApiRequest(authService.isAuthenticated());
 
     if (!res.success) {
+      console.log("NOT LOGGED IN");
       set((state) => ({
         ...state,
         isLoggedIn: false,
@@ -73,6 +78,7 @@ const createCartSlice: StateCreator<
     const res = await handleApiRequest(cartService.getCart());
     if (!res.success) {
       // todo: better error handling
+      await removeCookie(ENV.AUTH_CART_ID_COOKIE_NAME);
       console.log(res.message);
       set((state) => ({
         ...state,
@@ -104,12 +110,27 @@ const createCartSlice: StateCreator<
       }),
     );
     set(() => ({ isCartLoading: false }));
+    console.log(res, "RES");
     if (!res.success) {
       // todo: handle error better
       console.log("ERROR", res.message);
     }
 
     if (res.data) {
+      if (res.data.items.length === 0) {
+        await removeCookie(ENV.AUTH_CART_ID_COOKIE_NAME);
+        set((state) => ({
+          ...state,
+          cartItemCount: 0,
+          cartItems: null,
+        }));
+        return;
+      }
+      // set cartId in cookies
+      await setCookieValue({
+        key: ENV.AUTH_CART_ID_COOKIE_NAME,
+        value: res.data._id,
+      });
       set((state) => ({
         ...state,
         cartItemCount: res.data?.totalQuantity,

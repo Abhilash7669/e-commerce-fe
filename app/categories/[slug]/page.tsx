@@ -1,7 +1,7 @@
 import ListingsHero from "@/components/banner/listing-hero/listing-hero";
 import CardDetailed from "@/components/card/variants/detailed/card-detailed";
 import CardListing from "@/components/container/card/card-listing";
-import { categoriesServices } from "@/features/categories/services/index.services";
+import { categoriesServices } from "@/domain/categories/services/index.services";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import Link from "next/link";
 

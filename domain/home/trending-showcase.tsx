@@ -1,7 +1,7 @@
 import CardDetailed from "@/components/card/variants/detailed/card-detailed";
 import CardListing from "@/components/container/card/card-listing";
 import EyeBrowReversed from "@/components/eye-brow/variants/eye-brow-reversed";
-import { homeServices } from "@/features/home/service/home.service";
+import { homeServices } from "@/domain/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import Link from "next/link";
 

@@ -1,7 +1,7 @@
 import {
   TProductDetail,
   TProductVariant,
-} from "@/features/products/types/index.types";
+} from "@/domain/products/types/index.types";
 import { useState } from "react";
 
 export default function useProductVariants(data: TProductDetail) {

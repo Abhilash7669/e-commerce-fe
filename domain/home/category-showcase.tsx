@@ -1,6 +1,6 @@
 import CardDefault from "@/components/card/variants/default/card-default";
 import CardListing from "@/components/container/card/card-listing";
-import { homeServices } from "@/features/home/service/home.service";
+import { homeServices } from "@/domain/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import Link from "next/link";
 

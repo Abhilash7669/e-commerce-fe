@@ -1,7 +1,7 @@
 import CardSplit from "@/components/card/variants/split/card-split";
 import CardListing from "@/components/container/card/card-listing";
 import EyeBrowDefault from "@/components/eye-brow/variants/eye-brow-default";
-import { homeServices } from "@/features/home/service/home.service";
+import { homeServices } from "@/domain/home/service/home.service";
 import { handleApiRequest } from "@/lib/api/api-wrapper";
 import Link from "next/link";
 
